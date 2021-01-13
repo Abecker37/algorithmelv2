@@ -1,5 +1,3 @@
-const { table } = require('console');
-
 let args = process.argv;
 
 
@@ -31,7 +29,22 @@ function sort_date(input,output){
     for(i=0; i<input.length; i++){
         nouveauJson( input[i], output);
     }
- }
+}
+
+function sort_titre(input,output){
+    for(i=input.length-1;i>=1;i--){
+        for(j=0;j<=i-1;j++){
+            if(input[j+1].title < input[j].title){
+                let tmp = input[j];
+                input[j]= input[j+1];
+                input[j+1] = tmp;
+            }
+        }
+   }
+   for(i=0; i<input.length; i++){
+       nouveauJson( input[i], output);
+   }
+}
 
 
 for (i = 0 ; i < process.argv.length ; i++){
@@ -49,6 +62,14 @@ for (i = 0 ; i < process.argv.length ; i++){
             let output = args[i+3];
             start = new Date().getTime();
             sort_date(input,output);
+            stop = new Date().getTime();
+            console.log("time : " + (stop - start));
+        }
+        if (args[i+1] == 'sort_titre'){
+            let input = require(args[i+2]);
+            let output = args[i+3];
+            start = new Date().getTime();
+            sort_titre(input,output);
             stop = new Date().getTime();
             console.log("time : " + (stop - start));
         }
