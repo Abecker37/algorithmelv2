@@ -102,14 +102,23 @@ function search_date_true(input,search_year){
 }
 
 function search_key_word(input,key_word,genre){
-    for(i=0;i<input.length;i++){
-        for(j=0;j<input[i].genres;j++)
-            if(input[i].genres == genre){
-                console.log("salut")
-                console.log(input[i])
+    let recent_date = - 1000000000000000;
+    let recent_movie
+    for(i=0 ; i<input.length-1; i++){
+        if(input[i].overview.includes(key_word)){
+            try{
+                if(input[i].genres.includes(genre)){
+                    if(input[i].release_date>recent_date){
+                        recent_date = input[i].release_date;
+                        recent_movie = input[i];
+                    }
+                }
+            }catch (Exception){
             }
-
+            
+        }
     }
+    console.log(recent_movie);
 }
 
 
@@ -148,7 +157,6 @@ for (i = 0 ; i < process.argv.length ; i++){
             let genre = args[i+4];
             search_key_word(input,key_word,genre);
         }
-        
         stop = new Date().getTime();
         console.log("time : " + (stop - start));
     }
