@@ -1,6 +1,10 @@
 let args = process.argv;
 
-//fonction permattant de transformer les secondes en année pour la date
+/**
+ * Fonction permattant de transformer les secondes en année pour la date et de l'afficher dans un fichier json a coté du titre du film
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} output :Fichier de sortie d'entrée
+ */
 function transform(input,output){
     for(i = 0 ; i < input.length ; i++){
         let FullDate = new Date((input[i].release_date)*1000);
@@ -10,14 +14,22 @@ function transform(input,output){
     }
 }
 
-//fonction permettant de créer un nouveau json
+/**
+ * Fonction permettant de créer un nouveau json
+ * @param {*} ajout : Chose a rajouter dans le fichier
+ * @param {*} out : Fichier json qui sera modifier
+ */
 function nouveauJson(ajout, out){
     let writable = JSON.stringify(ajout,null,"\t");
     let fs = require('fs');
     fs.appendFileSync(out,writable);
 }
 
-//fonction permettant de trier le fichier json par date de sortie
+/**
+ * Fonction permettant de trier le fichier json par date de sortie
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} output :Fichier de sortie d'entrée
+ */
 function sort_date(input,output){
     for(i=input.length-1;i>=1;i--){
          for(j=0;j<=i-1;j++){
@@ -33,7 +45,11 @@ function sort_date(input,output){
     }
 }
 
-//fonction permettant de trier le fichier json par ordre alphabétique
+/**
+ * Fonction permettant de trier le fichier json par ordre alphabétique
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} output :Fichier de sortie d'entrée
+ */
 function sort_titre(input,output){
     for(i=input.length-1;i>=1;i--){
         for(j=0;j<=i-1;j++){
@@ -49,7 +65,11 @@ function sort_titre(input,output){
    }
 }
 
-//fonction permettant de savoir si le fichier est trié ou non
+/**
+ * Fonction permettant renvoyer en console tous les film sortie en une année donner si le fichier n'est pas trier
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} search_year : Année de sortie de film rechercher
+ */
 function search_date_false(input,search_year){
     for(i=0 ; i<input.length ; i++){
         let FullDate = new Date((input[i].release_date)*1000);
@@ -59,7 +79,11 @@ function search_date_false(input,search_year){
         }
     }
 }
-
+/**
+ * Fonction permettant renvoyer en console tous les film sortie en une année donner si le fichier est pas trier par date
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} search_year : Année de sortie de film rechercher
+ */
 function search_date_true(input,search_year){
     let min = 0;
     let max = input.length;
@@ -105,7 +129,12 @@ function search_date_true(input,search_year){
     }
 }
 
-//fonction permettant de chercher un film par genre 
+/**
+ * fonction permettant d'afficher en console le film le plus récent avec un genre donnée et un mot clé dans le résumé
+ * @param {*} input : Fichier json d'entrée
+ * @param {*} key_word : Mot clé qui doit apparaitre dans le résumé
+ * @param {*} genre :Genre du film
+ */
 function search_key_word(input,key_word,genre){
     let recent_date = - 1000000000000000;
     let recent_movie
