@@ -1,6 +1,6 @@
 let args = process.argv;
 
-
+//fonction permattant de transformer les secondes en année pour la date
 function transform(input,output){
     for(i = 0 ; i < input.length ; i++){
         let FullDate = new Date((input[i].release_date)*1000);
@@ -10,12 +10,14 @@ function transform(input,output){
     }
 }
 
+//fonction permettant de créer un nouveau json
 function nouveauJson(ajout, out){
     let writable = JSON.stringify(ajout,null,"\t");
     let fs = require('fs');
     fs.appendFileSync(out,writable);
 }
 
+//fonction permettant de trier le fichier json par date de sortie
 function sort_date(input,output){
     for(i=input.length-1;i>=1;i--){
          for(j=0;j<=i-1;j++){
@@ -31,6 +33,7 @@ function sort_date(input,output){
     }
 }
 
+//fonction permettant de trier le fichier json par ordre alphabétique
 function sort_titre(input,output){
     for(i=input.length-1;i>=1;i--){
         for(j=0;j<=i-1;j++){
@@ -46,6 +49,7 @@ function sort_titre(input,output){
    }
 }
 
+//fonction permettant de savoir si le fichier est trié ou non
 function search_date_false(input,search_year){
     for(i=0 ; i<input.length ; i++){
         let FullDate = new Date((input[i].release_date)*1000);
@@ -101,6 +105,7 @@ function search_date_true(input,search_year){
     }
 }
 
+//fonction permettant de chercher un film par genre 
 function search_key_word(input,key_word,genre){
     for(i=0;i<input.length;i++){
         for(j=0;j<input[i].genres;j++)
